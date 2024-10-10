@@ -1,0 +1,99 @@
+:root {
+    --matrix-text-size: 12pt;
+    --matrix-text-offset: calc(var(--matrix-text-size) / 2.5);
+    --matrix-text-color: rgb(0, 206, 0);
+    --matrix-text-speed: 10s;
+    --matrix-scroller-height: 110%;
+}
+
+#matrix-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: rgba(30, 39, 15);
+    color: var(--matrix-text-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: var(--matrix-text-size);
+}
+
+.matrix-scroller-container {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: var(--matrix-scroller-height);
+    overflow-y: hidden;
+    flex-direction: row;
+    display: flex;
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    text-shadow: 0 0 5px var(--matrix-text-color);
+    filter: blur(1px);
+}
+
+.matrix-scroller {
+    height: var(--matrix-scroller-height);
+    min-width: var(--matrix-text-size);
+    max-width: var(--matrix-text-size);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+#matrix-scroller-container-1 {
+    top: calc(var(--matrix-text-offset) * -3);
+    left: 0;
+    z-index: 1;
+    opacity: calc(1/7);
+}
+
+#matrix-scroller-container-2 {
+    top: calc(var(--matrix-text-offset) * -2);
+    left: var(--matrix-text-offset);
+    z-index: 2;
+    opacity: calc(2/7);
+}
+
+#matrix-scroller-container-3 {
+    top: 0;
+    left: var(--matrix-text-offset);
+    z-index: 3;
+    opacity: calc(3/7);
+}
+
+#matrix-scroller-container-4 {
+    top: calc(var(--matrix-text-offset) * 2);
+    left: var(--matrix-text-offset);
+    z-index: 4;
+    opacity: calc(4/7);
+}
+#matrix-scroller-container-5 {
+    top: calc(var(--matrix-text-offset) * 3);
+    left: var(--matrix-text-offset);
+    z-index: 5;
+    opacity: calc(5/7);
+}
+#matrix-scroller-container-6 {
+    top: calc(var(--matrix-text-offset) * 4);
+    left: var(--matrix-text-offset);
+    z-index: 6;
+    opacity: calc(6/7);
+}
+#matrix-scroller-container-7 {
+    top: calc(var(--matrix-text-offset) * 5);
+    left: var(--matrix-text-offset);
+    z-index: 7;
+    opacity: calc(7/7);
+}
+
+@keyframes matrix-text-animation {
+    0% {
+        transform: translateY(calc(var(--matrix-scroller-height) * -1));
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
