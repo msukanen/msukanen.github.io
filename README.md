@@ -1,3 +1,3 @@
 # Various web things (to be) ...
 
-* [https://msukanen.github.io/matrix-rain.html] - a 3D Matrix-style effect.
+* a 3D Matrix-style effect @ https://msukanen.github.io/matrix-rain.html
