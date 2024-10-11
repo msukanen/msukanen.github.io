@@ -1,9 +1,8 @@
 :root {
-    --matrix-text-size: 12pt;
-    --matrix-text-offset: calc(var(--matrix-text-size) / 2.5);
+    --matrix-text-size: 16px;
     --matrix-text-color: rgb(0, 206, 0);
     --matrix-text-speed: 10s;
-    --matrix-scroller-height: 110%;
+    --matrix-scroller-height: 110vh;
     --matrix-max-layers: 7;
 }
 
@@ -27,10 +26,8 @@
 .matrix-scroller-container {
     margin: 0;
     padding: 0;
-    width: 100vw;
-    min-width: 100vw;
     height: var(--matrix-scroller-height);
-    overflow-y: hidden;
+    overflow: hidden;
     flex-direction: row;
     display: flex;
     position: absolute;
@@ -41,54 +38,54 @@
 
 .matrix-scroller {
     height: var(--matrix-scroller-height);
-    min-width: var(--matrix-text-size);
-    max-width: var(--matrix-text-size);
+    width: 18px;
     writing-mode: vertical-rl;
     text-orientation: upright;
+    flex-shrink: 0;
 }
 
 #matrix-scroller-container-1 {
-    top: calc(var(--matrix-text-offset) * -3);
+    top: -6;
     left: 0;
     z-index: 1;
     opacity: calc(1/var(--matrix-max-layers));
 }
 
 #matrix-scroller-container-2 {
-    top: calc(var(--matrix-text-offset) * -2);
-    left: var(--matrix-text-offset);
+    top: -3;
+    left: 3;
     z-index: 2;
     opacity: calc(2/var(--matrix-max-layers));
 }
 
 #matrix-scroller-container-3 {
     top: 0;
-    left: var(--matrix-text-offset);
+    left: 6;
     z-index: 3;
     opacity: calc(3/var(--matrix-max-layers));
 }
 
 #matrix-scroller-container-4 {
-    top: calc(var(--matrix-text-offset) * 2);
-    left: var(--matrix-text-offset);
+    top: 3;
+    left: 9;
     z-index: 4;
     opacity: calc(4/var(--matrix-max-layers));
 }
 #matrix-scroller-container-5 {
-    top: calc(var(--matrix-text-offset) * 3);
-    left: var(--matrix-text-offset);
+    top: 6;
+    left: 12;
     z-index: 5;
     opacity: calc(5/var(--matrix-max-layers));
 }
 #matrix-scroller-container-6 {
-    top: calc(var(--matrix-text-offset) * 4);
-    left: var(--matrix-text-offset);
+    top: 9;
+    left: 15;
     z-index: 6;
     opacity: calc(6/var(--matrix-max-layers));
 }
 #matrix-scroller-container-7 {
-    top: calc(var(--matrix-text-offset) * 5);
-    left: var(--matrix-text-offset);
+    top: 12;
+    left: 18;
     z-index: 7;
     opacity: calc(7/var(--matrix-max-layers));
 }

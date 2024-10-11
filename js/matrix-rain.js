@@ -1,6 +1,15 @@
 "use strict";
-function genrandomstring() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-=";
+function genrandomstring(not_random_index) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?><,./-=";
+    if (not_random_index !== null && not_random_index !== undefined) {
+        if (not_random_index < 0) {
+            not_random_index = 0;
+        }
+        else if (not_random_index >= chars.length) {
+            not_random_index = chars.length - 1;
+        }
+        return chars.charAt(not_random_index);
+    }
     let textContent = "";
     let oldIndex = -1;
     const length = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
@@ -15,24 +24,39 @@ function genrandomstring() {
     return textContent;
 }
 class Scroller {
-    constructor(duration) {
+    constructor(duration, id) {
         var scroller = document.createElement("div");
         scroller.className = "matrix-scroller";
-        scroller.innerHTML = genrandomstring();
-        scroller.style.animationName = "matrix-text-animation";
-        scroller.style.animationDuration = duration + "s";
-        scroller.style.animationTimingFunction = "linear";
-        scroller.style.animationIterationCount = "infinite";
-        scroller.addEventListener("animationiteration", () => {
-            scroller.innerHTML = genrandomstring();
-            scroller.style.animationDuration = genrandomtiming() + "s";
-        });
+        scroller.innerHTML = genrandomstring(id);
         this.element = scroller;
+        this.duration = duration;
     }
 }
-function genrandomtiming() {
-    return Math.floor(Math.random() * 10) + 5;
+const genrandomtiming = () => {
+    do {
+        let duration = Math.floor(Math.random() * 10) + 5;
+        if (duration >= 1) {
+            return duration;
+        }
+    } while (true);
+};
+const randomValues = [];
+for (let i = 0; i < 2048; i++) {
+    let prevDuration = -1;
+    for (let j = 0; j < 40; j++) {
+        let duration;
+        do {
+            duration = genrandomtiming();
+        } while (duration === prevDuration);
+        prevDuration = duration;
+        randomValues.push(duration);
+    }
 }
+let timingIndex = 0;
+const gettimingvalue = () => {
+    timingIndex = (timingIndex + 1) % randomValues.length;
+    return randomValues[timingIndex];
+};
 function addscroller(whereId, id) {
     const body = document.getElementById(whereId);
     if (!body) {
@@ -40,41 +64,52 @@ function addscroller(whereId, id) {
         return;
     }
     const container = document.createElement("div");
-    container.id = "matrix-scroller-container-" + id;
+    container.id = `matrix-scroller-container-${id}`;
     container.className = "matrix-scroller-container";
     body.appendChild(container);
+    let scrollers = [];
     const numColumns = 40;
-    let prevDuration = -1;
     for (let i = 0; i < numColumns; i++) {
-        let duration;
-        do {
-            duration = genrandomtiming();
-        } while (duration === prevDuration);
-        prevDuration = duration;
-        container.appendChild(new Scroller(duration).element);
+        scrollers.push(new Scroller(gettimingvalue(), i));
     }
+    console.log(`offsetWidth before: ${container.offsetWidth}`);
+    scrollers.forEach(node => {
+        container.appendChild(node.element);
+    });
+    console.log(`offsetWidth after: ${container.offsetWidth}`);
+    scrollers.forEach(node => {
+        node.element.style.animationName = "matrix-text-animation";
+        node.element.style.animationDuration = `${node.duration}s`;
+        node.element.style.animationTimingFunction = "linear";
+        node.element.style.animationIterationCount = "infinite";
+        node.element.addEventListener("animationiteration", () => {
+            node.element.innerHTML = genrandomstring(id);
+            node.element.style.animationDuration = `${genrandomtiming()}s`;
+        });
+    });
 }
 function addhscroller(whereId, id, endAnimId, css_y, duration, text) {
     let body = document.getElementById(whereId);
     if (!body) {
-        console.error('Element with id "${whereId}" not found.');
+        console.error(`Element with id "${whereId}" not found.`);
         return;
     }
     let container = document.createElement("div");
-    container.id = 'matrix-hscroller-container-' + id;
+    container.id = `matrix-hscroller-container-${id}`;
     container.className = "matrix-hscroller-container";
     container.style.top = css_y;
     if (endAnimId === undefined) {
         container.style.animationName = "matrix-hscroller-animation";
     }
     else {
-        container.style.animationName = "matrix-hscroller-animation-" + Math.floor(Math.abs(endAnimId));
+        container.style.animationName = `matrix-hscroller-animation-${Math.floor(Math.abs(endAnimId))}`;
     }
-    container.style.animationDuration = duration + 's';
+    container.style.animationDuration = `${duration}s`;
     container.style.animationTimingFunction = "linear";
     container.style.animationIterationCount = "once";
     body.appendChild(container);
     const numColumns = text.length;
+    let scrollers = [];
     for (let i = 0; i < numColumns; i++) {
         let scroller = document.createElement("div");
         const ch = text.charAt(i);
@@ -85,6 +120,9 @@ function addhscroller(whereId, id, endAnimId, css_y, duration, text) {
             scroller.innerHTML = ch;
         }
         scroller.style.zIndex = '8';
-        container.appendChild(scroller);
+        scrollers.push(scroller);
     }
+    scrollers.forEach(element => {
+        container.appendChild(element);
+    });
 }

@@ -4,8 +4,9 @@
         "build": "npx tsc",
         "prepublish": "npm run build",
         "publish-css": "shx cp ./css/matrix-rain.css ./dist/css/",
-        "publish-js": "npm run build && shx cp ./js/matrix-rain.js ./dist/js/",
+        "copy-js": "shx cp ./js/matrix-rain.js ./dist/js/",
+        "publish-js": "npm run build && npm run copy-js",
         "publish-html": "shx cp ./matrix-rain.html ./dist/",
-        "publish": "npm run publish-css && npm run publish-js && npm run publish-html"
+        "publish": "npm run publish-css && npm run copy-js && npm run publish-html"
     }
 }
