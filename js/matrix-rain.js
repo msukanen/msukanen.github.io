@@ -64,7 +64,7 @@ function addhscroller(whereId, id, css_y, duration, text) {
     container.id = 'matrix-hscroller-container-' + id;
     container.className = "matrix-hscroller-container";
     container.style.top = css_y;
-    container.style.animationName = "matrix-htext-animation";
+    container.style.animationName = "matrix-hscroller-animation";
     container.style.animationDuration = duration + 's';
     container.style.animationTimingFunction = "linear";
     container.style.animationIterationCount = "once";
