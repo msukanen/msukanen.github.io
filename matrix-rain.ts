@@ -38,30 +38,22 @@ class Scroller {
     constructor(duration: number, id: number) {
         var scroller = document.createElement("div")
         scroller.className = "matrix-scroller"
-        scroller.innerHTML = genrandomstring(id)
+        scroller.id = `matrix-scroller-${id}`
+        scroller.innerHTML = genrandomstring(null)
         this.element = scroller;
         this.duration = duration
     }
 }
 
-// Generate random duration for the animation:
-const genrandomtiming = (): number => {
-    do {
-        let duration = Math.floor(Math.random() * 10) + 5
-        if (duration >= 1) {
-            return duration
-        }
-    } while(true)
-}
-
+// Instantiate some random values:
 const randomValues: number[] = []
-// Instantiate the random values:
-for (let i = 0; i < 2048; i++) {
+const countRandomValues = 2048
+for (let i = 0; i < countRandomValues; i++) {
     let prevDuration = -1;
     for (let j = 0; j < 40; j++) {
         let duration: number
         do {
-            duration = genrandomtiming()
+            duration = Math.floor(Math.random() * 10) + 5
         } while(duration === prevDuration)
         prevDuration = duration
         randomValues.push(duration)
@@ -71,7 +63,10 @@ let timingIndex = 0
 
 // Get next timing value:
 const gettimingvalue = (): number => {
-    timingIndex = (timingIndex + 1) % randomValues.length
+    timingIndex++
+    if (timingIndex >= randomValues.length) {
+        timingIndex = 0
+    }
     return randomValues[timingIndex]
 }
 
@@ -108,8 +103,8 @@ function addscroller(whereId: string, id: number): void {
         node.element.style.animationIterationCount = "infinite"
         // Change the text when the animation ends:
         node.element.addEventListener("animationiteration", () => {
-            node.element.innerHTML = genrandomstring(id)
-            node.element.style.animationDuration = `${genrandomtiming()}s`
+            node.element.innerHTML = genrandomstring(null)
+            node.element.style.animationDuration = `${gettimingvalue()}s`
         })
     });
 }

@@ -27,26 +27,20 @@ class Scroller {
     constructor(duration, id) {
         var scroller = document.createElement("div");
         scroller.className = "matrix-scroller";
-        scroller.innerHTML = genrandomstring(id);
+        scroller.id = `matrix-scroller-${id}`;
+        scroller.innerHTML = genrandomstring(null);
         this.element = scroller;
         this.duration = duration;
     }
 }
-const genrandomtiming = () => {
-    do {
-        let duration = Math.floor(Math.random() * 10) + 5;
-        if (duration >= 1) {
-            return duration;
-        }
-    } while (true);
-};
 const randomValues = [];
-for (let i = 0; i < 2048; i++) {
+const countRandomValues = 2048;
+for (let i = 0; i < countRandomValues; i++) {
     let prevDuration = -1;
     for (let j = 0; j < 40; j++) {
         let duration;
         do {
-            duration = genrandomtiming();
+            duration = Math.floor(Math.random() * 10) + 5;
         } while (duration === prevDuration);
         prevDuration = duration;
         randomValues.push(duration);
@@ -54,7 +48,10 @@ for (let i = 0; i < 2048; i++) {
 }
 let timingIndex = 0;
 const gettimingvalue = () => {
-    timingIndex = (timingIndex + 1) % randomValues.length;
+    timingIndex++;
+    if (timingIndex >= randomValues.length) {
+        timingIndex = 0;
+    }
     return randomValues[timingIndex];
 };
 function addscroller(whereId, id) {
@@ -83,8 +80,8 @@ function addscroller(whereId, id) {
         node.element.style.animationTimingFunction = "linear";
         node.element.style.animationIterationCount = "infinite";
         node.element.addEventListener("animationiteration", () => {
-            node.element.innerHTML = genrandomstring(id);
-            node.element.style.animationDuration = `${genrandomtiming()}s`;
+            node.element.innerHTML = genrandomstring(null);
+            node.element.style.animationDuration = `${gettimingvalue()}s`;
         });
     });
 }

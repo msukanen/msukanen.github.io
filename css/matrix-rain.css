@@ -34,6 +34,8 @@
     background-color: rgba(0,0,0,0);
     text-shadow: 0 0 5px var(--matrix-text-color);
     filter: blur(1px);
+    width: 720px;
+    flex-shrink: 0;
 }
 
 .matrix-scroller {
@@ -110,6 +112,10 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: xx-large;
     animation-fill-mode: forwards;
+}
+
+#matrix-hscroller-container-3 {
+    font-size: large;
 }
 
 @keyframes matrix-hscroller-animation {
