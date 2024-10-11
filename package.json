@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "prebuild": "npm install --silent -g shx",
         "build": "npx tsc",
         "prepublish": "npm run build",
         "publish": "shx cp js/matrix-rain.js dist/js/ && shx cp css/matrix-rain.css dist/css/ && shx cp matrix-rain.html dist/"
