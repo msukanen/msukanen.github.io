@@ -115,14 +115,29 @@
     animation-fill-mode: forwards;
 }
 
-.matrix-hscroller {
-}
-
 @keyframes matrix-hscroller-animation {
     0% {
         left: 100vw;
     }
     100% {
         left: 24pt;
+    }
+}
+
+@keyframes matrix-hscroller-animation-1 {
+    0% {
+        left: 100vw;
+    }
+    100% {
+        left: 36pt;
+    }
+}
+
+@keyframes matrix-hscroller-animation-2 {
+    0% {
+        left: 100vw;
+    }
+    100% {
+        left: 48pt;
     }
 }

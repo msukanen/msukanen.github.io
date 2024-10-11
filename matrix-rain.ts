@@ -69,7 +69,7 @@ function addscroller(whereId: string, id: number): void {
     }
 }
 
-function addhscroller(whereId: string, id: number, css_y: string, duration: number, text: string): void {
+function addhscroller(whereId: string, id: number, endAnimId: number | undefined, css_y: string, duration: number, text: string ): void {
     let body = document.getElementById(whereId);
     if (!body) {
         console.error('Element with id "${whereId}" not found.');
@@ -79,7 +79,11 @@ function addhscroller(whereId: string, id: number, css_y: string, duration: numb
     container.id = 'matrix-hscroller-container-' + id;
     container.className = "matrix-hscroller-container";
     container.style.top = css_y;
-    container.style.animationName = "matrix-hscroller-animation";
+    if (endAnimId === undefined) {
+        container.style.animationName = "matrix-hscroller-animation";
+    } else {
+        container.style.animationName = "matrix-hscroller-animation-" + Math.floor(Math.abs(endAnimId));
+    }
     container.style.animationDuration = duration + 's';
     container.style.animationTimingFunction = "linear";
     container.style.animationIterationCount = "once";
@@ -88,7 +92,6 @@ function addhscroller(whereId: string, id: number, css_y: string, duration: numb
     const numColumns = text.length;
     for (let i = 0; i < numColumns; i++) {
         let scroller = document.createElement("div");
-        scroller.className = "matrix-hscroller";
         const ch = text.charAt(i);
         if (ch === ' ') {
             scroller.innerHTML = '&nbsp;';
