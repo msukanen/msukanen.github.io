@@ -1,6 +1,5 @@
 # Various web things (to be) ...
-
-* a 3D Matrix-style effect @ https://msukanen.github.io/matrix-rain.html
+* Matrix 3D Rain - a 3D Matrix-style effect @ https://msukanen.github.io/matrix-rain.html
 
 ## Development
 Note that `./dist/` directory in `package.json` refers to the ultimate non-repository destination
