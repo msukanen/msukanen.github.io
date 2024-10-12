@@ -1,5 +1,4 @@
 :root {
-    --matrix-text-size: 16px;
     --matrix-text-color: rgb(0, 206, 0);
     --matrix-text-speed: 10s;
     --matrix-scroller-height: 110vh;
@@ -20,7 +19,6 @@
     background-color: rgba(30, 39, 15);
     color: var(--matrix-text-color);
     font-family: 'Courier New', Courier, monospace;
-    font-size: var(--matrix-text-size);
 }
 
 .matrix-scroller-container {
@@ -51,45 +49,49 @@
     left: 0;
     z-index: 1;
     opacity: calc(1/var(--matrix-max-layers));
+    font-size: 10px;
 }
-
 #matrix-scroller-container-2 {
     top: -3;
     left: 3;
     z-index: 2;
     opacity: calc(2/var(--matrix-max-layers));
+    font-size: 11px;
 }
-
 #matrix-scroller-container-3 {
     top: 0;
     left: 6;
     z-index: 3;
     opacity: calc(3/var(--matrix-max-layers));
+    font-size: 12px;
 }
-
 #matrix-scroller-container-4 {
     top: 3;
     left: 9;
     z-index: 4;
     opacity: calc(4/var(--matrix-max-layers));
+    font-size: 13px;
 }
 #matrix-scroller-container-5 {
     top: 6;
     left: 12;
     z-index: 5;
     opacity: calc(5/var(--matrix-max-layers));
+    font-size: 14px;
 }
 #matrix-scroller-container-6 {
     top: 9;
     left: 15;
     z-index: 6;
     opacity: calc(6/var(--matrix-max-layers));
+    font-size: 15px;
 }
 #matrix-scroller-container-7 {
     top: 12;
     left: 18;
     z-index: 7;
     opacity: calc(7/var(--matrix-max-layers));
+    font-size: 16px;
 }
 
 @keyframes matrix-text-animation {
@@ -97,7 +99,7 @@
         transform: translateY(calc(var(--matrix-scroller-height) * -1));
     }
     100% {
-        transform: translateY(100%);
+        transform: translateY(100vh);
     }
 }
 

@@ -3,7 +3,7 @@
 // Generate a random string of characters:
 function genrandomstring(not_random_index: number | null | undefined): string {
     // Characters to choose from:
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?><,./-="
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-="
     if (not_random_index !== null && not_random_index !== undefined) {
         if (not_random_index < 0) {
             not_random_index = 0
@@ -18,6 +18,10 @@ function genrandomstring(not_random_index: number | null | undefined): string {
 
     // Random text length between 5 and 50 characters:
     const length = Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    for (let i = 0; i < (50 - length) / 2; i++) {
+        textContent += "\u00A0"
+    }
+
     for (let i = 0; i < length; i++) {
         let randomIndex = Math.floor(Math.random() * chars.length)
         // Prevent the same character from appearing twice in a row:
@@ -85,7 +89,7 @@ function addscroller(whereId: string, id: number): void {
     let scrollers = []
     const numColumns = 40
     for (let i = 0; i < numColumns; i++) {
-        scrollers.push(new Scroller(gettimingvalue(), i))
+        scrollers.push(new Scroller(gettimingvalue(), i + (id-1) * numColumns))
     }
 
     console.log(`offsetWidth before: ${container.offsetWidth}`)

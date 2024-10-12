@@ -1,6 +1,6 @@
 "use strict";
 function genrandomstring(not_random_index) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?><,./-=";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-=";
     if (not_random_index !== null && not_random_index !== undefined) {
         if (not_random_index < 0) {
             not_random_index = 0;
@@ -13,6 +13,9 @@ function genrandomstring(not_random_index) {
     let textContent = "";
     let oldIndex = -1;
     const length = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    for (let i = 0; i < (50 - length) / 2; i++) {
+        textContent += "\u00A0";
+    }
     for (let i = 0; i < length; i++) {
         let randomIndex = Math.floor(Math.random() * chars.length);
         while (randomIndex === oldIndex) {
@@ -67,7 +70,7 @@ function addscroller(whereId, id) {
     let scrollers = [];
     const numColumns = 40;
     for (let i = 0; i < numColumns; i++) {
-        scrollers.push(new Scroller(gettimingvalue(), i));
+        scrollers.push(new Scroller(gettimingvalue(), i + (id - 1) * numColumns));
     }
     console.log(`offsetWidth before: ${container.offsetWidth}`);
     scrollers.forEach(node => {
