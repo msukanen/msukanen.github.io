@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Nidus Sans";
+  src: url("../gfx/nidsans-webfont.woff2") format("woff2"), url("../gfx/nidsans-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 #matrix-body {
   height: 100vh;
   max-height: 100vh;
@@ -11,6 +17,7 @@
   top: 0;
   background-color: rgb(30, 39, 15);
   font-family: "Courier New", Courier, monospace;
+  color: rgb(0, 206, 0);
 }
 
 .matrix-scroller-container {
@@ -108,9 +115,18 @@
   position: absolute;
   left: 100vw;
   z-index: 8;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: xx-large;
+  font-family: "Nidus Sans";
   animation-fill-mode: forwards;
+}
+
+#matrix-hscroller-container-1 {
+  font-size: 56pt;
+  font-weight: heavy;
+}
+
+#matrix-hscroller-container-2 {
+  font-size: 39pt;
+  font-weight: bold;
 }
 
 #matrix-hscroller-container-3 {

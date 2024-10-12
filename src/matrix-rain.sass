@@ -6,6 +6,12 @@ $matrix-scroller-height: 110vh
 $matrix-top-offset-delta: math.floor(math.div($matrix-font-size, math.floor(math.div($matrix-font-size, 5))))
 $matrix-max-layers: 7
 
+@font-face
+    font-family: 'Nidus Sans'
+    src: url('../gfx/nidsans-webfont.woff2') format('woff2'), url('../gfx/nidsans-webfont.woff') format('woff')
+    font-weight: normal
+    font-style: normal
+
 #matrix-body
     height: 100vh
     max-height: 100vh
@@ -19,6 +25,7 @@ $matrix-max-layers: 7
     top: 0
     background-color: rgba(30, 39, 15)
     font-family: 'Courier New', Courier, monospace
+    color: $matrix-text-color
 
 .matrix-scroller-container
     margin: 0
@@ -104,9 +111,17 @@ $matrix-max-layers: 7
     position: absolute
     left: 100vw
     z-index: $matrix-max-layers + 1
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-    font-size: xx-large
+    // font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    font-family: 'Nidus Sans'
     animation-fill-mode: forwards
+
+#matrix-hscroller-container-1
+    font-size: 56pt
+    font-weight: heavy
+
+#matrix-hscroller-container-2
+    font-size: 39pt
+    font-weight: bold
 
 #matrix-hscroller-container-3
     font-size: large
