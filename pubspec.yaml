@@ -1,0 +1,6 @@
+name: msukanen.github.io
+description: Personal website
+dev_dependencies:
+  sass: ^1.79.5
+environment: 
+  sdk: ^3.5.0

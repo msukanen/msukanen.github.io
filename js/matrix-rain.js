@@ -1,31 +1,35 @@
 "use strict";
-function genrandomstring(not_random_index) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-=";
-    if (not_random_index !== null && not_random_index !== undefined) {
-        if (not_random_index < 0) {
-            not_random_index = 0;
-        }
-        else if (not_random_index >= chars.length) {
-            not_random_index = chars.length - 1;
-        }
-        return chars.charAt(not_random_index);
-    }
-    let textContent = "";
-    let oldIndex = -1;
-    const length = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    for (let i = 0; i < (50 - length) / 2; i++) {
-        textContent += "\u00A0";
-    }
-    for (let i = 0; i < length; i++) {
-        let randomIndex = Math.floor(Math.random() * chars.length);
-        while (randomIndex === oldIndex) {
-            randomIndex = Math.floor(Math.random() * chars.length);
-        }
-        oldIndex = randomIndex;
-        textContent += chars.charAt(randomIndex);
-    }
-    return textContent;
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-=";
+const CHARS_LEN = CHARS.length;
+let rndTextLengths = [];
+for (let i = 0; i < 10240; i++) {
+    rndTextLengths.push(Math.floor(Math.random() * 46) + 5);
 }
+let currentRndTextLengthIndex = 0;
+const cyclicRndTextLengthIndex = () => {
+    currentRndTextLengthIndex++;
+    if (currentRndTextLengthIndex >= rndTextLengths.length) {
+        currentRndTextLengthIndex = 0;
+    }
+    return currentRndTextLengthIndex;
+};
+const genrandomstring = (nonRandomIndex) => {
+    if (nonRandomIndex != null) {
+        nonRandomIndex = (nonRandomIndex + CHARS.length) % CHARS.length;
+        return CHARS.charAt(nonRandomIndex);
+    }
+    let textContent = Array((50 - rndTextLengths[cyclicRndTextLengthIndex()]) / 2).fill("\u00A0");
+    let oldIndex = -1;
+    for (let i = 0; i < length; i++) {
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * CHARS.length);
+        } while (randomIndex === oldIndex);
+        oldIndex = randomIndex;
+        textContent.push(CHARS.charAt(randomIndex));
+    }
+    return textContent.join('');
+};
 class Scroller {
     constructor(duration, id) {
         var scroller = document.createElement("div");
@@ -57,7 +61,7 @@ const gettimingvalue = () => {
     }
     return randomValues[timingIndex];
 };
-function addscroller(whereId, id) {
+const addscroller = (whereId, id) => {
     const body = document.getElementById(whereId);
     if (!body) {
         console.error('Element with id "${whereId}" not found.');
@@ -89,8 +93,8 @@ function addscroller(whereId, id) {
             node.element.style.animationDuration = `${gettimingvalue()}s`;
         });
     });
-}
-function addhscroller(whereId, id, endAnimId, css_y, duration, text) {
+};
+const addhscroller = (whereId, id, endAnimId, css_y, duration, text) => {
     let body = document.getElementById(whereId);
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`);
@@ -127,4 +131,4 @@ function addhscroller(whereId, id, endAnimId, css_y, duration, text) {
     scrollers.forEach(element => {
         container.appendChild(element);
     });
-}
+};

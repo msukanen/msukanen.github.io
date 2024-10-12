@@ -1,0 +1,132 @@
+@use 'sass:math'
+
+$matrix-font-size: 16px
+$matrix-text-color: rgb(0, 206, 0)
+$matrix-scroller-height: 110vh
+$matrix-top-offset-delta: math.floor(math.div($matrix-font-size, math.floor(math.div($matrix-font-size, 5))))
+$matrix-max-layers: 7
+
+#matrix-body
+    display: flex
+    flex-direction: column
+    height: 100vh
+    max-height: 100vh
+    width: 100vw
+    max-width: 100vw
+    overflow: hidden
+    margin: 0
+    padding: 0
+    position: relative
+    background-color: rgba(30, 39, 15)
+    color: $matrix-text-color
+    font-family: 'Courier New', Courier, monospace
+
+.matrix-scroller-container
+    margin: 0
+    padding: 0
+    height: $matrix-scroller-height
+    overflow: hidden
+    flex-direction: row
+    display: flex
+    position: absolute
+    background-color: rgba(0,0,0,0)
+    text-shadow: 0 0 5px $matrix-text-color
+    filter: blur(1px)
+    width: $matrix-font-size * 40
+    flex-shrink: 0
+
+.matrix-scroller
+    height: $matrix-scroller-height
+    position: absolute
+    width: $matrix-font-size + 2
+    writing-mode: vertical-rl
+    text-orientation: upright
+    flex-shrink: 0
+
+#matrix-scroller-container-1
+    top: -($matrix-top-offset-delta * 2)
+    left: 0
+    z-index: 1
+    opacity: math.div(1, $matrix-max-layers)
+    font-size: 10px
+
+#matrix-scroller-container-2
+    top: -$matrix-top-offset-delta
+    left: 3
+    z-index: 2
+    opacity: math.div(2, $matrix-max-layers)
+    font-size: 11px
+
+#matrix-scroller-container-3
+    top: 0
+    left: 6
+    z-index: 3
+    opacity: math.div(3, $matrix-max-layers)
+    font-size: 12px
+
+#matrix-scroller-container-4
+    top: $matrix-top-offset-delta
+    left: 9
+    z-index: 4
+    opacity: math.div(4, $matrix-max-layers)
+    font-size: 13px
+
+#matrix-scroller-container-5
+    top: $matrix-top-offset-delta * 2
+    left: 12
+    z-index: 5
+    opacity: math.div(5, $matrix-max-layers)
+    font-size: 14px
+
+#matrix-scroller-container-6
+    top: $matrix-top-offset-delta * 3
+    left: 15
+    z-index: 6
+    opacity: math.div(6, $matrix-max-layers)
+    font-size: 15px
+
+#matrix-scroller-container-7
+    top: $matrix-top-offset-delta * 4
+    left: 18px
+    z-index: 7
+    opacity: math.div(7, $matrix-max-layers)
+    font-size: 16px
+
+@keyframes matrix-text-animation
+    0%
+        transform: translateY(-$matrix-scroller-height)
+    100%
+        transform: translateY(100vh)
+
+.matrix-hscroller-container
+    margin: 0
+    padding: 0
+    flex-direction: row
+    display: flex
+    position: absolute
+    left: 100vw
+    z-index: $matrix-max-layers + 1
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    font-size: xx-large
+    animation-fill-mode: forwards
+
+#matrix-hscroller-container-3
+    font-size: large
+
+@keyframes matrix-hscroller-animation
+    0%
+        left: 100vw
+    100%
+        left: 24pt
+
+@keyframes matrix-hscroller-animation-1
+    0%
+        left: 100vw
+    100%
+        left: 36pt
+
+@keyframes matrix-hscroller-animation-2
+    0%
+        left: 100vw
+    100%
+        left: 48pt

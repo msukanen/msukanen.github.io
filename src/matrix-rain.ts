@@ -1,37 +1,41 @@
-// Description: 3D animation for the main page.
+// Description: 3D animation for the matrix-rain page.
+
+// Characters to choose from:
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-="
+const CHARS_LEN = CHARS.length
+let rndTextLengths: number[] = []
+for (let i = 0; i < 10240; i++) {
+    rndTextLengths.push(Math.floor(Math.random() * 46 /*50-5+1*/) + 5)
+}
+let currentRndTextLengthIndex = 0
+const cyclicRndTextLengthIndex = (): number => {
+    currentRndTextLengthIndex++
+    if (currentRndTextLengthIndex >= rndTextLengths.length) {
+        currentRndTextLengthIndex = 0
+    }
+    return currentRndTextLengthIndex
+}
 
 // Generate a random string of characters:
-function genrandomstring(not_random_index: number | null | undefined): string {
-    // Characters to choose from:
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-="
-    if (not_random_index !== null && not_random_index !== undefined) {
-        if (not_random_index < 0) {
-            not_random_index = 0
-        } else if (not_random_index >= chars.length) {
-            not_random_index = chars.length - 1
-        }
-        return chars.charAt(not_random_index)
+const genrandomstring = (nonRandomIndex: number | null | undefined): string => {
+    if (nonRandomIndex != null) {
+        // Select a deterministic result insted of generating a random one.
+        nonRandomIndex = (nonRandomIndex + CHARS.length) % CHARS.length
+        return CHARS.charAt(nonRandomIndex)
     }
 
-    let textContent = ""
+    let textContent = Array((50 - rndTextLengths[cyclicRndTextLengthIndex()]) / 2).fill("\u00A0")
+
+    // Let's add some random characters while avoiding adding the same character twice in a row:
     let oldIndex = -1
-
-    // Random text length between 5 and 50 characters:
-    const length = Math.floor(Math.random() * (50 - 5 + 1)) + 5
-    for (let i = 0; i < (50 - length) / 2; i++) {
-        textContent += "\u00A0"
-    }
-
     for (let i = 0; i < length; i++) {
-        let randomIndex = Math.floor(Math.random() * chars.length)
-        // Prevent the same character from appearing twice in a row:
-        while (randomIndex === oldIndex) {
-            randomIndex = Math.floor(Math.random() * chars.length)
-        }
+        let randomIndex: number
+        do { randomIndex = Math.floor(Math.random() * CHARS.length) }
+        while (randomIndex === oldIndex)
         oldIndex = randomIndex;
-        textContent += chars.charAt(randomIndex)
+        textContent.push(CHARS.charAt(randomIndex))
     }
-    return textContent;
+    return textContent.join('')
 }
 
 // Generate a scrolling text element:
@@ -75,7 +79,7 @@ const gettimingvalue = (): number => {
 }
 
 // Add a scroller to the container:
-function addscroller(whereId: string, id: number): void {
+const addscroller = (whereId: string, id: number): void => {
     const body = document.getElementById(whereId)
     if (!body) {
         console.error('Element with id "${whereId}" not found.')
@@ -115,7 +119,13 @@ function addscroller(whereId: string, id: number): void {
     });
 }
 
-function addhscroller(whereId: string, id: number, endAnimId: number | undefined, css_y: string, duration: number, text: string ): void {
+const addhscroller = (
+        whereId: string,
+        id: number, endAnimId: number | undefined,
+        css_y: string,
+        duration: number,
+        text: string): void => {
+
     let body = document.getElementById(whereId)
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`)
