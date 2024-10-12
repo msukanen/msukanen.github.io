@@ -70,7 +70,9 @@ function addscroller(whereId, id) {
     let scrollers = [];
     const numColumns = 40;
     for (let i = 0; i < numColumns; i++) {
-        scrollers.push(new Scroller(gettimingvalue(), i + (id - 1) * numColumns));
+        let el = new Scroller(gettimingvalue(), i + (id - 1) * numColumns);
+        el.element.style.left = `${i * 18}px`;
+        scrollers.push(el);
     }
     console.log(`offsetWidth before: ${container.offsetWidth}`);
     scrollers.forEach(node => {
