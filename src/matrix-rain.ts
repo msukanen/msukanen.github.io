@@ -118,13 +118,7 @@ const addscroller = (whereId: string, id: number): void => {
     });
 }
 
-const addhscroller = (
-        whereId: string,
-        id: number, endAnimId: number | undefined,
-        css_y: string,
-        duration: number,
-        text: string): void => {
-
+const addhscroller = (whereId: string, id: number, text: string): void => {
     let body = document.getElementById(whereId)
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`)
@@ -133,15 +127,6 @@ const addhscroller = (
     let container = document.createElement("div")
     container.id = `matrix-hscroller-container-${id}`
     container.className = "matrix-hscroller-container"
-    container.style.top = css_y
-    if (endAnimId === undefined) {
-        container.style.animationName = "matrix-hscroller-animation"
-    } else {
-        container.style.animationName = `matrix-hscroller-animation-${Math.floor(Math.abs(endAnimId))}`
-    }
-    container.style.animationDuration = `${duration}s`
-    container.style.animationTimingFunction = "linear"
-    container.style.animationIterationCount = "once"
     body.appendChild(container)
     
     const numColumns = text.length
@@ -149,12 +134,8 @@ const addhscroller = (
     for (let i = 0; i < numColumns; i++) {
         let scroller = document.createElement("div")
         const ch = text.charAt(i)
-        if (ch === ' ') {
-            scroller.innerHTML = '&nbsp;'
-        } else {
-            scroller.innerHTML = ch
-        }
-        scroller.style.zIndex = '8'
+        if (ch === ' ') {   scroller.innerHTML = '&nbsp;'}
+        else {              scroller.innerHTML = ch      }
         scrollers.push(scroller)
     }
 

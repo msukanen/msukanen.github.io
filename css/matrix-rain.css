@@ -29,7 +29,7 @@
   background-color: rgba(0, 0, 0, 0);
   text-shadow: 0 0 5px rgb(0, 206, 0);
   filter: blur(1px);
-  width: 640px;
+  width: 821px;
   flex-shrink: 0;
 }
 
@@ -116,24 +116,35 @@
   left: 100vw;
   z-index: 8;
   font-family: "Nidus Sans";
+  animation-timing-function: linear;
   animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 }
 
 #matrix-hscroller-container-1 {
   font-size: 56pt;
   font-weight: heavy;
+  animation-duration: 5s;
+  animation-name: matrix-hscroller-animation-1;
+  top: 30vh;
 }
 
 #matrix-hscroller-container-2 {
   font-size: 39pt;
   font-weight: bold;
+  animation-duration: 5.25s;
+  animation-name: matrix-hscroller-animation-1;
+  top: 35.5vh;
 }
 
 #matrix-hscroller-container-3 {
   font-size: large;
+  animation-duration: 5.5s;
+  animation-name: matrix-hscroller-animation-1;
+  top: 40vh;
 }
 
-@keyframes matrix-hscroller-animation {
+@keyframes matrix-hscroller-animation-1 {
   0% {
     left: 100vw;
   }
@@ -141,7 +152,7 @@
     left: 24pt;
   }
 }
-@keyframes matrix-hscroller-animation-1 {
+@keyframes matrix-hscroller-animation-2 {
   0% {
     left: 100vw;
   }
@@ -149,11 +160,31 @@
     left: 36pt;
   }
 }
-@keyframes matrix-hscroller-animation-2 {
+@keyframes matrix-hscroller-animation-3 {
   0% {
     left: 100vw;
   }
   100% {
     left: 48pt;
+  }
+}
+#matrix-text {
+  position: fixed;
+  top: 0;
+  left: 0;
+  animation-name: matrix-text-tilt;
+  animation-duration: 2s;
+  animation-delay: 10s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes matrix-text-tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
   }
 }

@@ -95,7 +95,7 @@ const addscroller = (whereId, id) => {
         });
     });
 };
-const addhscroller = (whereId, id, endAnimId, css_y, duration, text) => {
+const addhscroller = (whereId, id, text) => {
     let body = document.getElementById(whereId);
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`);
@@ -104,16 +104,6 @@ const addhscroller = (whereId, id, endAnimId, css_y, duration, text) => {
     let container = document.createElement("div");
     container.id = `matrix-hscroller-container-${id}`;
     container.className = "matrix-hscroller-container";
-    container.style.top = css_y;
-    if (endAnimId === undefined) {
-        container.style.animationName = "matrix-hscroller-animation";
-    }
-    else {
-        container.style.animationName = `matrix-hscroller-animation-${Math.floor(Math.abs(endAnimId))}`;
-    }
-    container.style.animationDuration = `${duration}s`;
-    container.style.animationTimingFunction = "linear";
-    container.style.animationIterationCount = "once";
     body.appendChild(container);
     const numColumns = text.length;
     let scrollers = [];
@@ -126,7 +116,6 @@ const addhscroller = (whereId, id, endAnimId, css_y, duration, text) => {
         else {
             scroller.innerHTML = ch;
         }
-        scroller.style.zIndex = '8';
         scrollers.push(scroller);
     }
     scrollers.forEach(element => {
