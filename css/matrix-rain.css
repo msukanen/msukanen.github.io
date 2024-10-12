@@ -1,6 +1,4 @@
 #matrix-body {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
   max-height: 100vh;
   width: 100vw;
@@ -8,9 +6,10 @@
   overflow: hidden;
   margin: 0;
   padding: 0;
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   background-color: rgb(30, 39, 15);
-  color: rgb(0, 206, 0);
   font-family: "Courier New", Courier, monospace;
 }
 
@@ -19,8 +18,6 @@
   padding: 0;
   height: 110vh;
   overflow: hidden;
-  flex-direction: row;
-  display: flex;
   position: absolute;
   background-color: rgba(0, 0, 0, 0);
   text-shadow: 0 0 5px rgb(0, 206, 0);
@@ -36,6 +33,7 @@
   writing-mode: vertical-rl;
   text-orientation: upright;
   flex-shrink: 0;
+  color: rgb(0, 206, 0);
 }
 
 #matrix-scroller-container-1 {

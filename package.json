@@ -1,13 +1,19 @@
 {
     "scripts": {
         "bootstrap": "npm install --silent -g typescript shx",
-        "prebuild": "dart compile-sass.dart ./src/matrix-rain.sass ./css/matrix-rain.css",
-        "build": "npx tsc",
+        
+        "prebuild": "",
+        "build": "npm run build-js && npm run build-css && npm run build-html",
+        
+        "build-js": "npx tsc",
+        "build-css": "dart compile-sass.dart ./src/matrix-rain.sass ./css/matrix-rain.css",
+        "build-html": "",
+
+        "local-js": "npm run build-js && shx cp ./js/matrix-rain.js ./dist/js/",
+        "local-css": "npm run build-css && shx cp ./css/matrix-rain.css ./dist/css/",
+        "local-html": "shx cp ./matrix-rain.html ./dist/",
+        
         "prepublish": "npm run build",
-        "local-publish-css": "shx cp ./css/matrix-rain.css ./dist/css/",
-        "local-copy-js": "shx cp ./js/matrix-rain.js ./dist/js/",
-        "local-publish-js": "npm run build && npm run local-copy-js",
-        "local-publish-html": "shx cp ./matrix-rain.html ./dist/",
-        "publish": "npm run local-publish-css && npm run local-copy-js && npm run local-publish-html"
+        "publish": "npm run local-css && npm run local-js && npm run local-html"
     }
 }

@@ -24,7 +24,8 @@ const genrandomstring = (nonRandomIndex: number | null | undefined): string => {
         return CHARS.charAt(nonRandomIndex)
     }
 
-    let textContent = Array((50 - rndTextLengths[cyclicRndTextLengthIndex()]) / 2).fill("\u00A0")
+    let length = rndTextLengths[cyclicRndTextLengthIndex()]
+    let textContent = Array(Math.floor((50 - length) / 2)).fill("\u00A0")
 
     // Let's add some random characters while avoiding adding the same character twice in a row:
     let oldIndex = -1
@@ -98,13 +99,11 @@ const addscroller = (whereId: string, id: number): void => {
         scrollers.push(el)
     }
 
-    console.log(`offsetWidth before: ${container.offsetWidth}`)
-
+    container.offsetWidth
     scrollers.forEach(node => {
         container.appendChild(node.element)
     });
-
-    console.log(`offsetWidth after: ${container.offsetWidth}`)
+    container.offsetWidth
 
     scrollers.forEach(node => {
         node.element.style.animationName = "matrix-text-animation"

@@ -18,7 +18,8 @@ const genrandomstring = (nonRandomIndex) => {
         nonRandomIndex = (nonRandomIndex + CHARS.length) % CHARS.length;
         return CHARS.charAt(nonRandomIndex);
     }
-    let textContent = Array((50 - rndTextLengths[cyclicRndTextLengthIndex()]) / 2).fill("\u00A0");
+    let length = rndTextLengths[cyclicRndTextLengthIndex()];
+    let textContent = Array(Math.floor((50 - length) / 2)).fill("\u00A0");
     let oldIndex = -1;
     for (let i = 0; i < length; i++) {
         let randomIndex;
@@ -78,11 +79,11 @@ const addscroller = (whereId, id) => {
         el.element.style.left = `${i * 18}px`;
         scrollers.push(el);
     }
-    console.log(`offsetWidth before: ${container.offsetWidth}`);
+    container.offsetWidth;
     scrollers.forEach(node => {
         container.appendChild(node.element);
     });
-    console.log(`offsetWidth after: ${container.offsetWidth}`);
+    container.offsetWidth;
     scrollers.forEach(node => {
         node.element.style.animationName = "matrix-text-animation";
         node.element.style.animationDuration = `${node.duration}s`;

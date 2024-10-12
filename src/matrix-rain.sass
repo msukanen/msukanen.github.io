@@ -7,8 +7,6 @@ $matrix-top-offset-delta: math.floor(math.div($matrix-font-size, math.floor(math
 $matrix-max-layers: 7
 
 #matrix-body
-    display: flex
-    flex-direction: column
     height: 100vh
     max-height: 100vh
     width: 100vw
@@ -16,9 +14,10 @@ $matrix-max-layers: 7
     overflow: hidden
     margin: 0
     padding: 0
-    position: relative
+    position: fixed
+    left: 0
+    top: 0
     background-color: rgba(30, 39, 15)
-    color: $matrix-text-color
     font-family: 'Courier New', Courier, monospace
 
 .matrix-scroller-container
@@ -26,8 +25,6 @@ $matrix-max-layers: 7
     padding: 0
     height: $matrix-scroller-height
     overflow: hidden
-    flex-direction: row
-    display: flex
     position: absolute
     background-color: rgba(0,0,0,0)
     text-shadow: 0 0 5px $matrix-text-color
@@ -42,6 +39,7 @@ $matrix-max-layers: 7
     writing-mode: vertical-rl
     text-orientation: upright
     flex-shrink: 0
+    color: $matrix-text-color
 
 #matrix-scroller-container-1
     top: -($matrix-top-offset-delta * 2)
