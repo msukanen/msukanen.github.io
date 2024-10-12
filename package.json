@@ -2,7 +2,7 @@
     "scripts": {
         "bootstrap": "npm install --silent -g typescript shx",
         
-        "prebuild": "shx cp ./font/*.woff ./dist/gfx/ && shx cp ./font/*.woff2 ./dist/gfx/",
+        "prebuild": "shx cp ./gfx/*.woff ./dist/gfx/ && shx cp ./gfx/*.woff2 ./dist/gfx/",
         "build": "npm run build-js && npm run build-css && npm run build-html",
         
         "build-js": "npx tsc",
