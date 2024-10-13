@@ -110,14 +110,17 @@ $_hs_offset: 24pt
     top: 0
     left: 0
     animation-name: matrix-text-tilt
-    animation-duration: 2s
+    animation-duration: 3s
     animation-delay: 10s
     animation-iteration-count: 1
     animation-timing-function: linear
     animation-fill-mode: forwards
+    transform-origin: 55vh 500px
 
 @keyframes matrix-text-tilt
     0%
         transform: rotate(0deg)
+    67%
+        transform: rotate(90deg) translate(0px, 50vh)
     100%
-        transform: rotate(90deg)
+        transform: rotate(10deg) translate(100vw, 0vh)
