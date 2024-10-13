@@ -13,11 +13,11 @@
         <div id="matrix-text"></div>
         <script id="builder">
             for (let i = 1; i <= 7; i++) {
-                addscroller("matrix-rain", i);
+                addRainContainer("matrix-rain", i);
             }
             let htext = ["Matrix 3D Rain", "- by Markku Sukanen", "     (various rights not reserved)"];
             for (let i = 1; i <= htext.length; i++) {
-                addhscroller("matrix-text", i, htext[i-1]);
+                addHTextScroller("matrix-text", i, htext[i-1]);
             }
         </script>
     </body>

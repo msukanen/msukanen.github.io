@@ -32,13 +32,20 @@ const genrandomstring = (nonRandomIndex) => {
     return textContent.join('');
 };
 class Scroller {
+    get duration() {
+        return this._duration;
+    }
+    set duration(value) {
+        this._duration = value;
+        this.element.style.animationDuration = `${value}s`;
+    }
     constructor(duration, id) {
         var scroller = document.createElement("div");
-        scroller.className = "matrix-scroller";
-        scroller.id = `matrix-scroller-${id}`;
+        scroller.className = "matrix-rain-column";
+        scroller.id = `matrix-rain-${id}`;
         scroller.innerHTML = genrandomstring(null);
         this.element = scroller;
-        this.duration = duration;
+        this._duration = duration;
     }
 }
 const randomValues = [];
@@ -55,27 +62,27 @@ for (let i = 0; i < countRandomValues; i++) {
     }
 }
 let timingIndex = 0;
-const gettimingvalue = () => {
+const getNextRandomTiming = () => {
     timingIndex++;
     if (timingIndex >= randomValues.length) {
         timingIndex = 0;
     }
     return randomValues[timingIndex];
 };
-const addscroller = (whereId, id) => {
+const addRainContainer = (whereId, id) => {
     const body = document.getElementById(whereId);
     if (!body) {
         console.error('Element with id "${whereId}" not found.');
         return;
     }
     const container = document.createElement("div");
-    container.id = `matrix-scroller-container-${id}`;
-    container.className = "matrix-scroller-container";
+    container.id = `matrix-rain-container-${id}`;
+    container.className = "matrix-rain-container";
     body.appendChild(container);
     let scrollers = [];
     const numColumns = 40;
     for (let i = 0; i < numColumns; i++) {
-        let el = new Scroller(gettimingvalue(), i + (id - 1) * numColumns);
+        let el = new Scroller(getNextRandomTiming(), i + (id - 1) * numColumns);
         el.element.style.left = `${i * 18}px`;
         scrollers.push(el);
     }
@@ -85,17 +92,14 @@ const addscroller = (whereId, id) => {
     });
     container.offsetWidth;
     scrollers.forEach(node => {
-        node.element.style.animationName = "matrix-text-animation";
         node.element.style.animationDuration = `${node.duration}s`;
-        node.element.style.animationTimingFunction = "linear";
-        node.element.style.animationIterationCount = "infinite";
         node.element.addEventListener("animationiteration", () => {
             node.element.innerHTML = genrandomstring(null);
-            node.element.style.animationDuration = `${gettimingvalue()}s`;
+            node.element.style.animationDuration = `${getNextRandomTiming()}s`;
         });
     });
 };
-const addhscroller = (whereId, id, text) => {
+const addHTextScroller = (whereId, id, text) => {
     let body = document.getElementById(whereId);
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`);

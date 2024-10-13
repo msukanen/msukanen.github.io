@@ -41,16 +41,24 @@ const genrandomstring = (nonRandomIndex: number | null | undefined): string => {
 
 // Generate a scrolling text element:
 class Scroller {
+    private _duration: number
     element: HTMLDivElement
-    duration: number
+
+    get duration(): number {
+        return this._duration
+    }
+    set duration(value: number) {
+        this._duration = value
+        this.element.style.animationDuration = `${value}s`
+    }
 
     constructor(duration: number, id: number) {
         var scroller = document.createElement("div")
-        scroller.className = "matrix-scroller"
-        scroller.id = `matrix-scroller-${id}`
+        scroller.className = "matrix-rain-column"
+        scroller.id = `matrix-rain-${id}`
         scroller.innerHTML = genrandomstring(null)
         this.element = scroller;
-        this.duration = duration
+        this._duration = duration
     }
 }
 
@@ -71,7 +79,7 @@ for (let i = 0; i < countRandomValues; i++) {
 let timingIndex = 0
 
 // Get next timing value:
-const gettimingvalue = (): number => {
+const getNextRandomTiming = (): number => {
     timingIndex++
     if (timingIndex >= randomValues.length) {
         timingIndex = 0
@@ -79,22 +87,22 @@ const gettimingvalue = (): number => {
     return randomValues[timingIndex]
 }
 
-// Add a scroller to the container:
-const addscroller = (whereId: string, id: number): void => {
+// Add a rain container into whereId:
+const addRainContainer = (whereId: string, id: number): void => {
     const body = document.getElementById(whereId)
     if (!body) {
         console.error('Element with id "${whereId}" not found.')
         return
     }
     const container = document.createElement("div")
-    container.id = `matrix-scroller-container-${id}`
-    container.className = "matrix-scroller-container"
+    container.id = `matrix-rain-container-${id}`
+    container.className = "matrix-rain-container"
     body.appendChild(container)
     
     let scrollers = []
     const numColumns = 40
     for (let i = 0; i < numColumns; i++) {
-        let el = new Scroller(gettimingvalue(), i + (id-1) * numColumns)
+        let el = new Scroller(getNextRandomTiming(), i + (id-1) * numColumns)
         el.element.style.left = `${i * 18}px`
         scrollers.push(el)
     }
@@ -106,19 +114,17 @@ const addscroller = (whereId: string, id: number): void => {
     container.offsetWidth
 
     scrollers.forEach(node => {
-        node.element.style.animationName = "matrix-text-animation"
         node.element.style.animationDuration = `${node.duration}s`
-        node.element.style.animationTimingFunction = "linear"
-        node.element.style.animationIterationCount = "infinite"
         // Change the text when the animation ends:
         node.element.addEventListener("animationiteration", () => {
             node.element.innerHTML = genrandomstring(null)
-            node.element.style.animationDuration = `${gettimingvalue()}s`
+            node.element.style.animationDuration = `${getNextRandomTiming()}s`
         })
     });
 }
 
-const addhscroller = (whereId: string, id: number, text: string): void => {
+// Add a horizontal text scroller:
+const addHTextScroller = (whereId: string, id: number, text: string): void => {
     let body = document.getElementById(whereId)
     if (!body) {
         console.error(`Element with id "${whereId}" not found.`)
