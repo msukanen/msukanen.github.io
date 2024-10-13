@@ -12,10 +12,8 @@
         <div id="matrix-rain"></div>
         <div id="matrix-text"></div>
         <script id="builder">
-            for (let i = 1; i <= 7; i++) {
-                addRainContainer("matrix-rain", i);
-            }
-            let htext = ["Matrix 3D Rain", "- by Markku Sukanen", "  (various rights not reserved)", "YMMV"];
+            bootstrapMatrixRain("matrix-rain", 40, 7);
+            let htext = ["Matrix 3D Rain", "- by Markku Sukanen", "  (various rights not reserved)", "    ... YMMV ..."];
             for (let i = 1; i <= htext.length; i++) {
                 addHTextScroller("matrix-text", i, htext[i-1]);
             }

@@ -1,6 +1,9 @@
 "use strict";
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-=";
 const CHARS_LEN = CHARS.length;
+const DEFAULT_COLUMNS = 40;
+const RANDOM_TIMING_VALUES_PER_COLUMN = 2048;
+const FONT_SIZE = 18;
 let _rndTextLengths = [];
 for (let i = 0; i < 10240; i++) {
     _rndTextLengths.push(Math.floor(Math.random() * 46) + 5);
@@ -48,28 +51,30 @@ class Scroller {
         this._duration = duration;
     }
 }
-let _randomValues = [];
-const RANDOM_VALUES = 2048;
-for (let i = 0; i < RANDOM_VALUES; i++) {
-    let prevDuration = -1;
-    for (let j = 0; j < 40; j++) {
-        let duration;
-        do {
-            duration = Math.floor(Math.random() * 10) + 5;
-        } while (duration === prevDuration);
-        prevDuration = duration;
-        _randomValues.push(duration);
+let _randomTimingValues = [];
+const bootstrapMatrixRain = (whereId, columns, layers) => {
+    for (let i = 0, prevDuration = -1, duration = 0; i < RANDOM_TIMING_VALUES_PER_COLUMN; i++) {
+        for (let j = 0; j < columns; j++) {
+            do {
+                duration = Math.floor(Math.random() * 10) + 5;
+            } while (duration === prevDuration);
+            prevDuration = duration;
+            _randomTimingValues.push(duration);
+        }
     }
-}
+    for (let i = 1; i <= layers; i++) {
+        addRainContainer(whereId, i, columns);
+    }
+};
 let _timingIndex = 0;
 const getNextRandomTiming = () => {
     _timingIndex++;
-    if (_timingIndex >= _randomValues.length) {
+    if (_timingIndex >= _randomTimingValues.length) {
         _timingIndex = 0;
     }
-    return _randomValues[_timingIndex];
+    return _randomTimingValues[_timingIndex];
 };
-const addRainContainer = (whereId, id) => {
+const addRainContainer = (whereId, id, numColumns) => {
     const body = document.getElementById(whereId);
     if (!body) {
         console.error('Element with id "${whereId}" not found.');
@@ -80,10 +85,10 @@ const addRainContainer = (whereId, id) => {
     container.className = "matrix-rain-container";
     body.appendChild(container);
     let scrollers = [];
-    const numColumns = 40;
-    for (let i = 0; i < numColumns; i++) {
-        let el = new Scroller(getNextRandomTiming(), i + (id - 1) * numColumns);
-        el.element.style.left = `${i * 18}px`;
+    const numCol = (numColumns != null) ? numColumns : DEFAULT_COLUMNS;
+    for (let i = 0; i < numCol; i++) {
+        let el = new Scroller(getNextRandomTiming(), i + (id - 1) * numCol);
+        el.element.style.left = `${i * FONT_SIZE + ((id - 1) * 1.666)}px`;
         scrollers.push(el);
     }
     container.offsetWidth;
