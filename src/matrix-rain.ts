@@ -3,17 +3,17 @@
 // Characters to choose from:
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-="
 const CHARS_LEN = CHARS.length
-let rndTextLengths: number[] = []
+let _rndTextLengths: number[] = []
 for (let i = 0; i < 10240; i++) {
-    rndTextLengths.push(Math.floor(Math.random() * 46 /*50-5+1*/) + 5)
+    _rndTextLengths.push(Math.floor(Math.random() * 46 /*50-5+1*/) + 5)
 }
-let currentRndTextLengthIndex = 0
+let _currentRndTextLengthIndex = 0
 const cyclicRndTextLengthIndex = (): number => {
-    currentRndTextLengthIndex++
-    if (currentRndTextLengthIndex >= rndTextLengths.length) {
-        currentRndTextLengthIndex = 0
+    _currentRndTextLengthIndex++
+    if (_currentRndTextLengthIndex >= _rndTextLengths.length) {
+        _currentRndTextLengthIndex = 0
     }
-    return currentRndTextLengthIndex
+    return _currentRndTextLengthIndex
 }
 
 // Generate a random string of characters:
@@ -24,7 +24,7 @@ const genrandomstring = (nonRandomIndex: number | null | undefined): string => {
         return CHARS.charAt(nonRandomIndex)
     }
 
-    let length = rndTextLengths[cyclicRndTextLengthIndex()]
+    let length = _rndTextLengths[cyclicRndTextLengthIndex()]
     let textContent = Array(Math.floor((50 - length) / 2)).fill("\u00A0")
 
     // Let's add some random characters while avoiding adding the same character twice in a row:
@@ -39,7 +39,7 @@ const genrandomstring = (nonRandomIndex: number | null | undefined): string => {
     return textContent.join('')
 }
 
-// Generate a scrolling text element:
+// A rainfall text element scroller:
 class Scroller {
     private _duration: number
     element: HTMLDivElement
@@ -63,9 +63,9 @@ class Scroller {
 }
 
 // Instantiate some random values:
-const randomValues: number[] = []
-const countRandomValues = 2048
-for (let i = 0; i < countRandomValues; i++) {
+let _randomValues: number[] = []
+const RANDOM_VALUES = 2048
+for (let i = 0; i < RANDOM_VALUES; i++) {
     let prevDuration = -1;
     for (let j = 0; j < 40; j++) {
         let duration: number
@@ -73,18 +73,18 @@ for (let i = 0; i < countRandomValues; i++) {
             duration = Math.floor(Math.random() * 10) + 5
         } while(duration === prevDuration)
         prevDuration = duration
-        randomValues.push(duration)
+        _randomValues.push(duration)
     }
 }
-let timingIndex = 0
+let _timingIndex = 0
 
 // Get next timing value:
 const getNextRandomTiming = (): number => {
-    timingIndex++
-    if (timingIndex >= randomValues.length) {
-        timingIndex = 0
+    _timingIndex++
+    if (_timingIndex >= _randomValues.length) {
+        _timingIndex = 0
     }
-    return randomValues[timingIndex]
+    return _randomValues[_timingIndex]
 }
 
 // Add a rain container into whereId:

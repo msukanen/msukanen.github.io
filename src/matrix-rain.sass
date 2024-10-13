@@ -5,9 +5,10 @@ $matrix-text-color: rgb(0, 206, 0)
 $matrix-rain-height: 110vh
 $matrix-top-offset-delta: math.floor(math.div($matrix-font-size, math.floor(math.div($matrix-font-size, 5))))
 $matrix-max-layers: 7
+$matrix-hscroller-count: 4
 
 @font-face
-    font-family: 'Nidus Sans'
+    font-family: 'Nidus Sans' // 'Nidus Sans' is a free font available at https://www.behance.net/gallery/26132489/Nidus-Sans-Font-Download
     src: url('../gfx/nidsans-webfont.woff2') format('woff2'), url('../gfx/nidsans-webfont.woff') format('woff')
     font-weight: normal
     font-style: normal
@@ -72,62 +73,37 @@ $matrix-max-layers: 7
         transform: translateY(100vh)
 
 .matrix-hscroller-container
-    margin: 0
-    padding: 0
     flex-direction: row
     display: flex
     position: absolute
     left: 100vw
     z-index: $matrix-max-layers + 1
-    // font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
     font-family: 'Nidus Sans'
     animation-timing-function: linear
     animation-fill-mode: forwards
     animation-iteration-count: 1
 
-$fsz: 80pt
-$top: 30vh
-
-@for $i from 1 through 3
-    $ofz: $fsz
-    $fsz: math.div($fsz, 1.436)
+$_fsz: 80pt
+$_top: 30vh
+$_hs_offset: 24pt
+@for $i from 1 through $matrix-hscroller-count
+    $_ofz: $_fsz
+    $_fsz: math.div($_fsz, 1.436)
     @if ($i > 1)
-        $top: calc($top + $ofz + 2pt)
+        /* had to resort to browser calc() function due to technical reasons,
+           e.g. because 'vh' and 'pt' units cannot be added together in SASS.
+        $_top: calc($_top + $_ofz + 2pt)
     #matrix-hscroller-container-#{$i}
-        top: $top
+        top: $_top
         animation-name: matrix-hscroller-animation-#{$i}
         animation-duration: 5s + (0.25 * ($i - 1))
-        font-size: $fsz
-     
-#matrix-hscroller-container-1
-    $hscroll-1-font-size: 56pt
-    font-size: $hscroll-1-font-size
-    font-weight: heavy
-
-#matrix-hscroller-container-2
-    font-size: 39pt
-    font-weight: bold
-
-#matrix-hscroller-container-3
-    font-size: large
-
-@keyframes matrix-hscroller-animation-1
-    0%
-        left: 100vw
-    100%
-        left: 24pt
-
-@keyframes matrix-hscroller-animation-2
-    0%
-        left: 100vw
-    100%
-        left: 36pt
-
-@keyframes matrix-hscroller-animation-3
-    0%
-        left: 100vw
-    100%
-        left: 48pt
+        font-size: $_fsz
+        font-weight: 900 - (($i - 1) * 100)
+    @keyframes matrix-hscroller-animation-#{$i}
+        0%
+            left: 100vw
+        100%
+            left: $_hs_offset + (($i - 1) * 12pt)
 
 #matrix-text
     position: fixed
@@ -143,7 +119,5 @@ $top: 30vh
 @keyframes matrix-text-tilt
     0%
         transform: rotate(0deg)
-    // 93.333%
-        // transform: rotate(0deg)
     100%
         transform: rotate(90deg)

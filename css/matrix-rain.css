@@ -119,8 +119,6 @@
   }
 }
 .matrix-hscroller-container {
-  margin: 0;
-  padding: 0;
   flex-direction: row;
   display: flex;
   position: absolute;
@@ -137,34 +135,7 @@
   animation-name: matrix-hscroller-animation-1;
   animation-duration: 5s;
   font-size: 55.7103064067pt;
-}
-
-#matrix-hscroller-container-2 {
-  top: calc(30vh + 55.7103064067pt + 2pt);
-  animation-name: matrix-hscroller-animation-2;
-  animation-duration: 5.25s;
-  font-size: 38.7954779991pt;
-}
-
-#matrix-hscroller-container-3 {
-  top: calc(30vh + 55.7103064067pt + 2pt + 38.7954779991pt + 2pt);
-  animation-name: matrix-hscroller-animation-3;
-  animation-duration: 5.5s;
-  font-size: 27.0163495815pt;
-}
-
-#matrix-hscroller-container-1 {
-  font-size: 56pt;
-  font-weight: heavy;
-}
-
-#matrix-hscroller-container-2 {
-  font-size: 39pt;
-  font-weight: bold;
-}
-
-#matrix-hscroller-container-3 {
-  font-size: large;
+  font-weight: 900;
 }
 
 @keyframes matrix-hscroller-animation-1 {
@@ -175,6 +146,16 @@
     left: 24pt;
   }
 }
+/* had to resort to browser calc() function due to technical reasons,
+* e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
+#matrix-hscroller-container-2 {
+  top: calc(30vh + 55.7103064067pt + 2pt);
+  animation-name: matrix-hscroller-animation-2;
+  animation-duration: 5.25s;
+  font-size: 38.7954779991pt;
+  font-weight: 800;
+}
+
 @keyframes matrix-hscroller-animation-2 {
   0% {
     left: 100vw;
@@ -183,12 +164,40 @@
     left: 36pt;
   }
 }
+/* had to resort to browser calc() function due to technical reasons,
+* e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
+#matrix-hscroller-container-3 {
+  top: calc(30vh + 55.7103064067pt + 2pt + 38.7954779991pt + 2pt);
+  animation-name: matrix-hscroller-animation-3;
+  animation-duration: 5.5s;
+  font-size: 27.0163495815pt;
+  font-weight: 700;
+}
+
 @keyframes matrix-hscroller-animation-3 {
   0% {
     left: 100vw;
   }
   100% {
     left: 48pt;
+  }
+}
+/* had to resort to browser calc() function due to technical reasons,
+* e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
+#matrix-hscroller-container-4 {
+  top: calc(30vh + 55.7103064067pt + 2pt + 38.7954779991pt + 2pt + 27.0163495815pt + 2pt);
+  animation-name: matrix-hscroller-animation-4;
+  animation-duration: 5.75s;
+  font-size: 18.8136139147pt;
+  font-weight: 600;
+}
+
+@keyframes matrix-hscroller-animation-4 {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: 60pt;
   }
 }
 #matrix-text {
