@@ -4,9 +4,10 @@ const CHARS_LEN = CHARS.length;
 const DEFAULT_COLUMNS = 40;
 const RANDOM_TIMING_VALUES_PER_COLUMN = 2048;
 const FONT_SIZE = 18;
+const MAX_TEXT_LEN = 50;
 let _rndTextLengths = [];
 for (let i = 0; i < 10240; i++) {
-    _rndTextLengths.push(Math.floor(Math.random() * 46) + 5);
+    _rndTextLengths.push(Math.floor(Math.random() * MAX_TEXT_LEN - 4) + 5);
 }
 let _currentRndTextLengthIndex = 0;
 const cyclicRndTextLengthIndex = () => {
@@ -22,7 +23,11 @@ const genrandomstring = (nonRandomIndex) => {
         return CHARS.charAt(nonRandomIndex);
     }
     let length = _rndTextLengths[cyclicRndTextLengthIndex()];
-    let textContent = Array(Math.floor((50 - length) / 2)).fill("\u00A0");
+    if (length === undefined) {
+        console.error('Invalid length value:', length);
+        return 'ERROR';
+    }
+    let textContent = Array(Math.floor((MAX_TEXT_LEN - length) / 2)).fill("\u00A0");
     let oldIndex = -1;
     for (let i = 0; i < length; i++) {
         let randomIndex;
@@ -72,7 +77,12 @@ const getNextRandomTiming = () => {
     if (_timingIndex >= _randomTimingValues.length) {
         _timingIndex = 0;
     }
-    return _randomTimingValues[_timingIndex];
+    let value = _randomTimingValues[_timingIndex];
+    if (value === undefined) {
+        console.error('Invalid timing value:', value);
+        return 0;
+    }
+    return value;
 };
 const addRainContainer = (whereId, id, numColumns) => {
     const body = document.getElementById(whereId);
@@ -91,11 +101,9 @@ const addRainContainer = (whereId, id, numColumns) => {
         el.element.style.left = `${i * FONT_SIZE + ((id - 1) * 1.666)}px`;
         scrollers.push(el);
     }
-    container.offsetWidth;
     scrollers.forEach(node => {
         container.appendChild(node.element);
     });
-    container.offsetWidth;
     scrollers.forEach(node => {
         node.element.style.animationDuration = `${node.duration}s`;
         node.element.addEventListener("animationiteration", () => {
