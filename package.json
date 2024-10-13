@@ -3,18 +3,25 @@
         "bootstrap": "npm install --silent -g typescript shx",
         
         "prebuild": "shx cp ./gfx/*.woff ./dist/gfx/ && shx cp ./gfx/*.woff2 ./dist/gfx/",
-        "build": "npm run build-js && npm run build-css && npm run build-html",
+        "build": "npm run build-all",
+        "postbuild": "npm run local-publish",
         
-        "build-js": "npx tsc",
-        "build-css": "dart compile-sass.dart ./src/matrix-rain.sass ./css/matrix-rain.css",
-        "build-html": "",
+        "build-all": "npm run build-all-js && npm run build-all-css && npm run build-all-html",
+        "build-all-js": "npm run build-matrix-rain-js",
+        "build-all-css": "npm run build-matrix-rain-css",
+        "build-all-html": "npm run build-matrix-rain-html",
 
-        "local-js": "npm run build-js && shx cp ./js/matrix-rain.js ./dist/js/",
-        "local-css": "npm run build-css && shx cp ./css/matrix-rain.css ./dist/css/",
+        "build-matrix-rain": "npm run build-matrix-rain-js && npm run build-matrix-rain-css && npm run build-matrix-rain-html",
+        "build-matrix-rain-js": "npx tsc --project tsconfig.json ./src/matrix-rain.ts --outFile ./js/matrix-rain.js",
+        "build-matrix-rain-css": "dart compile-sass.dart ./src/matrix-rain.sass ./css/matrix-rain.css",
+        "build-matrix-rain-html": "",
+
+        "local-publish": "npm run publish && npm run local-css && npm run local-js && npm run local-html",
+        "local-js": "npm run build-all-js && shx cp ./js/*.js ./dist/js/",
+        "local-css": "npm run build-all-css && shx cp ./css/*.css ./dist/css/",
         "local-html": "shx cp ./matrix-rain.html ./dist/",
-        "local-publish": "npm run prepublish && npm run local-css && npm run local-js && npm run local-html",
         
-        "prepublish": "npm run build",
+        "prepublish": "",
         "publish": ""
     }
 }
