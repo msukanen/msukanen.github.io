@@ -12,8 +12,9 @@
         "local-js": "npm run build-js && shx cp ./js/matrix-rain.js ./dist/js/",
         "local-css": "npm run build-css && shx cp ./css/matrix-rain.css ./dist/css/",
         "local-html": "shx cp ./matrix-rain.html ./dist/",
+        "local-publish": "npm run prepublish && npm run local-css && npm run local-js && npm run local-html",
         
         "prepublish": "npm run build",
-        "publish": "npm run local-css && npm run local-js && npm run local-html"
+        "publish": ""
     }
 }
