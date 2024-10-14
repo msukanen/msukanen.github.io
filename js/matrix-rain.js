@@ -1,4 +1,5 @@
-"use strict";
+// Description: 3D animation for the matrix-rain page.
+// Characters to choose from:
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$abcdefghijklmnopqrstuvwxyz%^&*()_+~`|}{[]\:;?£§,./-=";
 const CHARS_LEN = CHARS.length;
 const DEFAULT_COLUMNS = 40;
@@ -17,8 +18,10 @@ const cyclicRndTextLengthIndex = () => {
     }
     return _currentRndTextLengthIndex;
 };
+// Generate a random string of characters:
 const genrandomstring = (nonRandomIndex) => {
     if (nonRandomIndex != null) {
+        // Select a deterministic result insted of generating a random one.
         nonRandomIndex = (nonRandomIndex + CHARS.length) % CHARS.length;
         return CHARS.charAt(nonRandomIndex);
     }
@@ -28,6 +31,7 @@ const genrandomstring = (nonRandomIndex) => {
         return 'ERROR';
     }
     let textContent = Array(Math.floor((MAX_TEXT_LEN - length) / 2)).fill("\u00A0");
+    // Let's add some random characters while avoiding adding the same character twice in a row:
     let oldIndex = -1;
     for (let i = 0; i < length; i++) {
         let randomIndex;
@@ -39,6 +43,7 @@ const genrandomstring = (nonRandomIndex) => {
     }
     return textContent.join('');
 };
+// A rainfall text element scroller:
 class Scroller {
     get duration() {
         return this._duration;
@@ -56,6 +61,7 @@ class Scroller {
         this._duration = duration;
     }
 }
+// Instantiate some random timing values:
 let _randomTimingValues = [];
 const bootstrapMatrixRain = (whereId, columns, layers) => {
     for (let i = 0, prevDuration = -1, duration = 0; i < RANDOM_TIMING_VALUES_PER_COLUMN; i++) {
@@ -72,6 +78,7 @@ const bootstrapMatrixRain = (whereId, columns, layers) => {
     }
 };
 let _timingIndex = 0;
+// Get next timing value:
 const getNextRandomTiming = () => {
     _timingIndex++;
     if (_timingIndex >= _randomTimingValues.length) {
@@ -84,6 +91,7 @@ const getNextRandomTiming = () => {
     }
     return value;
 };
+// Add a rain container into whereId:
 const addRainContainer = (whereId, id, numColumns) => {
     const body = document.getElementById(whereId);
     if (!body) {
@@ -106,12 +114,14 @@ const addRainContainer = (whereId, id, numColumns) => {
     });
     scrollers.forEach(node => {
         node.element.style.animationDuration = `${node.duration}s`;
+        // Change the text when the animation ends:
         node.element.addEventListener("animationiteration", () => {
             node.element.innerHTML = genrandomstring(null);
             node.element.style.animationDuration = `${getNextRandomTiming()}s`;
         });
     });
 };
+// Add a horizontal text scroller:
 const addHTextScroller = (whereId, id, text) => {
     let body = document.getElementById(whereId);
     if (!body) {

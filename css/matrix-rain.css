@@ -7,7 +7,6 @@
 [id^=matrix-] {
   margin: 0;
   padding: 0;
-  position: fixed;
 }
 
 [class^=matrix-] {
@@ -134,7 +133,6 @@
   top: 30vh;
   animation-name: matrix-hscroller-animation-1;
   animation-duration: 5s;
-  font-size: 55.7103064067pt;
   font-weight: 900;
 }
 
@@ -146,13 +144,22 @@
     left: 24pt;
   }
 }
+@media (max-width: 768px) {
+  #matrix-hscroller-container-1 {
+    font-size: 27.8551532033pt;
+  }
+}
+@media not (max-width: 768px) {
+  #matrix-hscroller-container-1 {
+    font-size: 55.7103064067pt;
+  }
+}
 /* had to resort to browser calc() function due to technical reasons,
 * e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
 #matrix-hscroller-container-2 {
   top: calc(30vh + 55.7103064067pt + 2pt);
   animation-name: matrix-hscroller-animation-2;
   animation-duration: 5.25s;
-  font-size: 38.7954779991pt;
   font-weight: 800;
 }
 
@@ -164,13 +171,22 @@
     left: 36pt;
   }
 }
+@media (max-width: 768px) {
+  #matrix-hscroller-container-2 {
+    font-size: 19.3977389995pt;
+  }
+}
+@media not (max-width: 768px) {
+  #matrix-hscroller-container-2 {
+    font-size: 38.7954779991pt;
+  }
+}
 /* had to resort to browser calc() function due to technical reasons,
 * e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
 #matrix-hscroller-container-3 {
   top: calc(30vh + 55.7103064067pt + 2pt + 38.7954779991pt + 2pt);
   animation-name: matrix-hscroller-animation-3;
   animation-duration: 5.5s;
-  font-size: 27.0163495815pt;
   font-weight: 700;
 }
 
@@ -182,13 +198,22 @@
     left: 48pt;
   }
 }
+@media (max-width: 768px) {
+  #matrix-hscroller-container-3 {
+    font-size: 13.5081747908pt;
+  }
+}
+@media not (max-width: 768px) {
+  #matrix-hscroller-container-3 {
+    font-size: 27.0163495815pt;
+  }
+}
 /* had to resort to browser calc() function due to technical reasons,
 * e.g. because 'vh' and 'pt' units cannot be added together in SASS. */
 #matrix-hscroller-container-4 {
   top: calc(30vh + 55.7103064067pt + 2pt + 38.7954779991pt + 2pt + 27.0163495815pt + 2pt);
   animation-name: matrix-hscroller-animation-4;
   animation-duration: 5.75s;
-  font-size: 18.8136139147pt;
   font-weight: 600;
 }
 
@@ -198,6 +223,16 @@
   }
   100% {
     left: 60pt;
+  }
+}
+@media (max-width: 768px) {
+  #matrix-hscroller-container-4 {
+    font-size: 9.4068069574pt;
+  }
+}
+@media not (max-width: 768px) {
+  #matrix-hscroller-container-4 {
+    font-size: 18.8136139147pt;
   }
 }
 #matrix-text {
