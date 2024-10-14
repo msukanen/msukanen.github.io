@@ -11,15 +11,15 @@ for (let i = 0; i < 10240; i++) {
     _rndTextLengths.push(Math.floor(Math.random() * MAX_TEXT_LEN - 4) + 5);
 }
 let _currentRndTextLengthIndex = 0;
-const cyclicRndTextLengthIndex = () => {
-    _currentRndTextLengthIndex++;
-    if (_currentRndTextLengthIndex >= _rndTextLengths.length) {
-        _currentRndTextLengthIndex = 0;
-    }
-    return _currentRndTextLengthIndex;
-};
-// Generate a random string of characters:
+/** Generate a random string of characters. */
 const genrandomstring = (nonRandomIndex) => {
+    const cyclicRndTextLengthIndex = () => {
+        _currentRndTextLengthIndex++;
+        if (_currentRndTextLengthIndex >= _rndTextLengths.length) {
+            _currentRndTextLengthIndex = 0;
+        }
+        return _currentRndTextLengthIndex;
+    };
     if (nonRandomIndex != null) {
         // Select a deterministic result insted of generating a random one.
         nonRandomIndex = (nonRandomIndex + CHARS.length) % CHARS.length;
@@ -43,7 +43,7 @@ const genrandomstring = (nonRandomIndex) => {
     }
     return textContent.join('');
 };
-// A rainfall text element scroller:
+/** A rainfall text element scroller. */
 class Scroller {
     get duration() {
         return this._duration;
@@ -61,8 +61,13 @@ class Scroller {
         this._duration = duration;
     }
 }
-// Instantiate some random timing values:
 let _randomTimingValues = [];
+/** Bootstrap the whole rain effect.
+ *
+ * @param whereId The id-name of the element where the rain effect will be added.
+ * @param columns The number of columns to be displayed.
+ * @param layers The number of layers to be generated.
+*/
 const bootstrapMatrixRain = (whereId, columns, layers) => {
     for (let i = 0, prevDuration = -1, duration = 0; i < RANDOM_TIMING_VALUES_PER_COLUMN; i++) {
         for (let j = 0; j < columns; j++) {
@@ -78,7 +83,7 @@ const bootstrapMatrixRain = (whereId, columns, layers) => {
     }
 };
 let _timingIndex = 0;
-// Get next timing value:
+/** Get next timing value. */
 const getNextRandomTiming = () => {
     _timingIndex++;
     if (_timingIndex >= _randomTimingValues.length) {
@@ -91,7 +96,14 @@ const getNextRandomTiming = () => {
     }
     return value;
 };
-// Add a rain container into whereId:
+/** Add a rain container into whereId element.
+ *
+ * @param whereId The id-name of the element where the rain effect will be added.
+ * @param id The id of the rain container.
+ * @param numColumns The number of columns to be displayed.
+ *
+ * If numColumns is null or undefined, the default value will be used.
+*/
 const addRainContainer = (whereId, id, numColumns) => {
     const body = document.getElementById(whereId);
     if (!body) {
@@ -121,7 +133,12 @@ const addRainContainer = (whereId, id, numColumns) => {
         });
     });
 };
-// Add a horizontal text scroller:
+/** Add a horizontal text scroller.
+ *
+ * @param whereId The id-name of the element where the scroller will be added.
+ * @param id The id of the scroller.
+ * @param text The text to be displayed.
+*/
 const addHTextScroller = (whereId, id, text) => {
     let body = document.getElementById(whereId);
     if (!body) {
