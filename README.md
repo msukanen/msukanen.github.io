@@ -3,7 +3,9 @@
 
 ## Development
 Note that `./dist/` directory in `package.json` refers to the ultimate non-repository destination
-of HTML, CSS and JavaScript stuff. YMMV - set "publish" parts in `package.json` as you see fit.
+of HTML, CSS and JavaScript stuff.
+
+YMMV - set "publish" and "local" script(s) in `package.json` as you see fit.
 
 ### Requirements
 * shx
