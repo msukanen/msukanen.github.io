@@ -13,12 +13,7 @@ $matrix-hscroller-count: 4
     font-weight: normal
     font-style: normal
 
-[id^="matrix-"]
-    margin: 0
-    padding: 0
-    position: fixed
-
-[class^="matrix-"]
+[class^="matrix-"], [id^="matrix-"]
     margin: 0
     padding: 0
 
@@ -97,13 +92,18 @@ $_hs_offset: 24pt
         top: $_top
         animation-name: matrix-hscroller-animation-#{$i}
         animation-duration: 5s + (0.25 * ($i - 1))
-        font-size: $_fsz
         font-weight: 900 - (($i - 1) * 100)
     @keyframes matrix-hscroller-animation-#{$i}
         0%
             left: 100vw
         100%
             left: $_hs_offset + (($i - 1) * 12pt)
+    @media (max-width: 768px)
+        #matrix-hscroller-container-#{$i}
+            font-size: math.div($_fsz, 2)
+    @media not (max-width: 768px)
+        #matrix-hscroller-container-#{$i}
+            font-size: $_fsz
 
 #matrix-text
     position: fixed
