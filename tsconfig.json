@@ -9,7 +9,7 @@
     "stripInternal": true,
     // "noEmitHelpers": true,
     "noEmitOnError": true,
-    //"esModuleInterop": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
@@ -30,4 +30,7 @@
     "noImplicitOverride": true,
     "skipLibCheck": true
   },
+  "include": [
+    "src/**/*.ts"
+  ],
 }
