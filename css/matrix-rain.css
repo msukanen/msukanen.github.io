@@ -4,12 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
-[id^=matrix-] {
-  margin: 0;
-  padding: 0;
-}
-
-[class^=matrix-] {
+[class^=matrix-], [id^=matrix-] {
   margin: 0;
   padding: 0;
 }
