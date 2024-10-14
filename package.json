@@ -19,7 +19,7 @@
         "local-publish": "npm run local-css && npm run local-js && npm run local-html",
         "local-js": "npm run build-all-js && shx cp ./js/*.js ./.dist/js/",
         "local-css": "npm run build-all-css && shx cp ./css/*.css ./.dist/css/",
-        "local-html": "shx cp ./matrix-rain.html ./.dist/",
+        "local-html": "node copy-html.js",
         
         "prepublish": "",
         "publish": ""
