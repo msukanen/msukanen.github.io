@@ -12,7 +12,7 @@
         "build-all-html": "npm run build-matrix-rain-html",
 
         "build-matrix-rain": "npm run build-matrix-rain-js && npm run build-matrix-rain-css && npm run build-matrix-rain-html",
-        "build-matrix-rain-js": "npx tsc --project tsconfig.json ./src/matrix-rain.ts --outFile ./js/matrix-rain.js",
+        "build-matrix-rain-js": "npx tsc ./src/matrix-rain.ts --outFile ./js/matrix-rain.js --target es2016 --module amd",
         "build-matrix-rain-css": "dart compile-sass.dart ./src/matrix-rain.sass ./css/matrix-rain.css",
         "build-matrix-rain-html": "",
 
