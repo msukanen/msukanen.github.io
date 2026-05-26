@@ -5,7 +5,7 @@ const sourceDir = '.';
 const destDir = path.join(__dirname, '.dist');
 
 if (!fs.existsSync(destDir)) {
-  throw new Error('Please run `npm run build` before running this script');
+  throw new Error('Run this script at correct location/ensure that .dist folder exists.');
 }
 
 fs.readdir(sourceDir, (err, files) => {
